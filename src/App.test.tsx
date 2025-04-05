@@ -16,3 +16,19 @@ describe("Server Composer", () => {
     expect(screen.getByRole("button")).toBeInTheDocument();
   });
 });
+
+describe("CPU Select Component", () => {
+  test("CPU default option", () => {
+    render(<App />);
+    const cpuSelect = screen.getByTestId("cpu-select");
+    expect(cpuSelect).toHaveTextContent("Select CPU");
+  });
+});
+
+describe("Memory Input", () => {
+  test("shows placeholder", () => {
+    render(<App />);
+    const memoryInputPlaceholder = screen.getByPlaceholderText("e.g., 2,048");
+    expect(memoryInputPlaceholder).toBeInTheDocument();
+  });
+});
