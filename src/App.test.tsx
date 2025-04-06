@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import App from "./App";
 
 describe("Server Composer", () => {
@@ -22,6 +22,18 @@ describe("CPU Select Component", () => {
     render(<App />);
     const cpuSelect = screen.getByTestId("cpu-select");
     expect(cpuSelect).toHaveTextContent("Select CPU");
+  });
+
+  test("renders correct options", async () => {
+    render(<App />);
+    const cpuSelect = screen.getByTestId("cpu-select");
+    const selectInput = cpuSelect.querySelector("input");
+    fireEvent.mouseDown(within(cpuSelect).getByRole("combobox"));
+    const selectOptions = screen.getAllByRole("option");
+    fireEvent.click(selectOptions[0]);
+    expect(selectInput).toHaveValue(
+      selectOptions[0].getAttribute("data-value")
+    );
   });
 });
 
